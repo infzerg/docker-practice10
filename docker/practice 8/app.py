@@ -5,7 +5,7 @@ import random
 import string
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-LOG_LEVEL = os.getenv('LOG_LEVEL', 'DEBUG').upper()
+LOG_LEVEL = os.getenv('LOG_LEVEL', 'PROD').upper()
 
 class LoggingHandler(BaseHTTPRequestHandler):
     def do_GET(self):
