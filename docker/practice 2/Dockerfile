@@ -1,0 +1,19 @@
+FROM cr.yandex/mirror/python:3.11-slim
+
+
+WORKDIR /app
+
+
+ENV REGISTRY="Yandex Mirror"
+
+
+COPY --chown=1001:1001 app.py .
+
+
+USER 1001
+
+
+EXPOSE 8080
+
+
+CMD ["python", "app.py"]
