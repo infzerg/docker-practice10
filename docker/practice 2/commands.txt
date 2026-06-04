@@ -2,7 +2,7 @@
 sudo docker build -t yandex-python-app .
 
 # Запуск контейнера
-sudo docker run -d -p 8080:80 --name ya-py-app yandex-python-app
+sudo docker run -d -p 8080:8080 --name ya-py-app yandex-python-app
 
 # После запуска понял, что кодирока в говне.
 # Добавил 
