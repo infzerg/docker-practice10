@@ -7,21 +7,24 @@ REGISTRY = os.getenv('REGISTRY', 'Unknown')
 class SimpleHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
-        self.send_header('Content-type', 'text/html')
+        self.send_header('Content-type', 'text/html, charset=utf-8' )
         self.end_headers()
 
         html = f"""
         <html>
-        <head><title>Task 2</title></head>
+        <head>
+		<meta charset="UTF-8">
+		<title>Task 2</title>
+	</head>
         <body style="font-family: Arial; text-align: center; padding: 50px;">
-            <h1>Задание 2 выполнено!</h1>
-            <h2>Yandex Mirror Registry</h2>
-            <p>Registry: <strong>{REGISTRY}</strong></p>
-            <p>Базовый образ: <code>cr.yandex/mirror/python:3.11-slim</code></p>
+		<h1>Задание 2 выполнено!</h1>
+		<h2>Yandex Mirror Registry</h2>
+		<p>Registry: <strong>{REGISTRY}</strong></p>
+		<p>Базовый образ: <code>cr.yandex/mirror/python:3.11-slim</code></p>
         </body>
         </html>
         """
-        self.wfile.write(html.encode())
+        self.wfile.write(html.encode("utf-8"))
 
     def log_message(self, format, *args):
         print(f"{self.address_string()} - {format % args}")

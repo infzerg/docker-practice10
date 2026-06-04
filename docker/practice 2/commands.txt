@@ -1,0 +1,12 @@
+# Сборка билда
+sudo docker build -t yandex-python-app .
+
+# Запуск контейнера
+sudo docker run -d -p 8080:80 --name ya-py-app yandex-python-app
+
+# После запуска понял, что кодирока в говне.
+# Добавил 
+self.send_header('Content-type', 'text/html, charset=utf-8' )
+self.wfile.write(html.encode("utf-8"))
+
+#Пересобрал билд, запустил контейнер. Корректно.
