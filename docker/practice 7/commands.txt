@@ -1,0 +1,35 @@
+# Создал докерфайл. CDM не пустой, чтобы сразу интерактивный режим запускался.
+FROM mostafamoradian/xk6-kafka:latest
+
+
+USER root
+
+
+RUN apk add --no-cache nano && addgroup -g 1001 -S appgroup && adduser -u 1001 -S -G appgroup appuser
+
+
+USER appuser
+
+
+ENTRYPOINT ["/bin/sh"]
+
+
+CMD ["-i"]
+
+# Cобрал билд
+sudo docker build -t xk6-kafka .
+
+# Запустил
+% sudo docker pull mostafamoradian/xk6-kafka:latest
+	latest: Pulling from mostafamoradian/xk6-kafka
+	Digest: sha256:8a170bfd77c9003f4a611aa8786e648c59432258bb6217debd4e3fb3c68d16d5
+	Status: Image is up to date for mostafamoradian/xk6-kafka:latest
+	docker.io/mostafamoradian/xk6-kafka:latest
+
+% sudo docker image inspect mostafamoradian/xk6-kafka:latest \ --format '{{.Config.Entrypoint}} | {{.Config.Cmd}}'
+	[k6] | []
+
+% sudo docker run -it xk6-kafka:latest
+	/home/k6 $ ls -a
+	.   ..
+
