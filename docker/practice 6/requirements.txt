@@ -1,2 +1,4 @@
 requests==2.31.0
 flask==3.0.0
+pytest==1.0.0
+black==2.0.0
