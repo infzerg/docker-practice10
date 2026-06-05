@@ -13,4 +13,4 @@ USER appuser
 ENTRYPOINT ["/bin/sh"]
 
 
-CMD ["-i"]
+CMD []
