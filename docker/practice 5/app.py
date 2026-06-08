@@ -39,7 +39,7 @@ class ArchHandler(BaseHTTPRequestHandler):
             </style>
         </head>
         <body>
-            <h1>🏗️  Multi-Architecture Build Demo</h1>
+            <h1>Multi-Architecture Build Demo</h1>
 
             <div class="box">
                 <div><span class="label">Architecture:</span> <span class="value">{arch}</span></div>
