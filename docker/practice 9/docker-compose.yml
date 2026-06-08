@@ -1,19 +1,16 @@
 services:
-  # Redis в ОТДЕЛЬНОЙ сети - никто не может к нему подключиться
   redis:
     image: redis:alpine
     container_name: redis
     networks:
       - backend_net
 
-  # API/Backend - в internal сети (нет доступа наружу)
   api:
     image: nginx:alpine
     container_name: api
     networks:
       - backend_net
 
-  # Frontend - в своей сети, не видит API
   frontend:
     image: nginx:alpine
     container_name: frontend
@@ -21,9 +18,7 @@ services:
       - "8080:80"
     networks:
       - backend_net
-    # Пытается подключиться к api, но не может (разные сети)
 
-  # Worker - использует хардкод IP вместо имени
   worker:
     image: alpine:latest
     container_name: worker
@@ -35,9 +30,7 @@ services:
       - backend_net
     depends_on:
       - redis
-    # Пытается подключиться к Redis по IP, который не существует
 
-  # DB - в backend_net, но backend_net помечена internal
   db:
     image: postgres:15-alpine
     container_name: db
@@ -47,14 +40,11 @@ services:
       - backend_net
 
 networks:
-  # Redis в изолированной сети
   redis_net:
     driver: bridge
 
-  # Backend в internal сети (нет доступа к интернету и другим сетям)
   backend_net:
     driver: bridge
 
-  # Frontend в своей сети
   frontend_net:
     driver: bridge
