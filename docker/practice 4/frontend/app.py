@@ -67,7 +67,7 @@ class FrontendHandler(BaseHTTPRequestHandler):
         </head>
         <body>
             <div class="container">
-                <h1>🎨 {APP_NAME}</h1>
+                <h1>{APP_NAME}</h1>
                 <div class="status">
                     <strong>Backend Status:</strong> {backend_status}<br>
                     <strong>Backend URL:</strong> {BACKEND_URL}
