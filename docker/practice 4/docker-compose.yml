@@ -1,0 +1,56 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: db
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD: ${PGPASS}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PGDB}
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PGUSER} -d ${PGDB}"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: compose_frontend
+    environment:
+      APP_NAME: Frontend
+      BACKEND_URL: http://backend:5000
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: compose_backend
+    environment:
+      APP_NAME: Backend
+      DB_HOST: db
+      DB_PORT: 5432
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge
